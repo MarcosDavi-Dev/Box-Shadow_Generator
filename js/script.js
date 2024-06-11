@@ -5,7 +5,7 @@ class BoxShadowGenerator {
     vertical,
     verticalRef,
     blur,
-    bluerRef,
+    blurRef,
     spread,
     spreadRef,
     previewBox,
@@ -18,13 +18,34 @@ class BoxShadowGenerator {
     this.vertical = vertical;
     this.verticalRef = verticalRef;
     this.blur = blur;
-    this.bluerRef = bluerRef;
+    this.blurRef = blurRef;
     this.spread = spread;
     this.spreadRef = spreadRef;
     this.previewBox = previewBox;
     this.rule = rule;
     this.webkitRule = webkitRule;
     this.mozRule = mozRule;
+  }
+
+  initialize() {
+    this.horizontalRef.value = this.horizontal.value;
+    this.verticalRef.value = this.vertical.value;
+    this.spreadRef.value = this.spread.value;
+    this.blurRef.value = this.blur.value;
+
+    this.applyRule();
+    this.showRule();
+  }
+
+  applyRule() {
+    this.previewBox.style.boxShadow = `${this.horizontalRef.value}px ${this.verticalRef.value}px ${this.spreadRef.value}px ${this.blurRef.value}px #000000`;
+    this.currentRule = this.previewBox.style.boxShadow;
+  }
+
+  showRule() {
+    this.rule.innerText = this.currentRule;
+    this.webkitRule.innerText = this.currentRule;
+    this.mozRule.innerText = this.currentRule;
   }
 }
 
@@ -34,7 +55,7 @@ const horizontalRef = document.querySelector("#horizontal-value");
 const vertical = document.querySelector("#vertical");
 const verticalRef = document.querySelector("#vertical-value");
 const blur = document.querySelector("#blur");
-const bluerRef = document.querySelector("#blur-value");
+const blurRef = document.querySelector("#blur-value");
 const spread = document.querySelector("#spread");
 const spreadRef = document.querySelector("#spread-value");
 
@@ -50,7 +71,7 @@ const boxShadow = new BoxShadowGenerator(
   vertical,
   verticalRef,
   blur,
-  bluerRef,
+  blurRef,
   spread,
   spreadRef,
   previewBox,
@@ -59,6 +80,6 @@ const boxShadow = new BoxShadowGenerator(
   mozRule
 );
 
-console.log(boxShadow);
+boxShadow.initialize();
 
 // Eventos
